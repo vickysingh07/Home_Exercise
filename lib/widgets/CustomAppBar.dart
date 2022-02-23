@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, must_be_immutable, sized_box_for_whitespace, file_names
+// ignore_for_file: prefer_const_constructors, must_be_immutable, file_names, use_key_in_widget_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 
@@ -55,8 +55,8 @@ class CustomAppBar extends StatelessWidget {
               Icons.notifications,
               color: iconTween.value,
             ),
-            const Padding(
-              padding: EdgeInsets.all(10.0),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
               child: CircleAvatar(
                 backgroundColor: Colors.black,
               ),

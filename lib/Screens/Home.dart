@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_constructors, file_names, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:home_exercise/Screens/CustomAppBar.dart';
+import 'package:home_exercise/widgets/CustomAppBar.dart';
+import 'package:home_exercise/widgets/CustomDrawer.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -49,7 +50,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      drawer: Drawer(),
+      drawer: CustomDrawer(),
       backgroundColor: Colors.white,
       body: NotificationListener(
         onNotification: scrollListner,
