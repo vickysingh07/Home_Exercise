@@ -33,8 +33,7 @@ class YogaDatabase {
    ${YogaModel.IDName} $idType,
    ${YogaModel.YogaName} $textType,
    ${YogaModel.ImageName} $textType,
-   ${YogaModel.SecondsOrNot} $boolType
-   )''');
+   ${YogaModel.SecondsOrTimes} $textType)''');
 
     await db.execute('''
     CREATE TABLE ${YogaModel.YogaTable2}(
@@ -42,7 +41,7 @@ class YogaDatabase {
    ${YogaModel.YogaName} $textType,
    ${YogaModel.ImageName} $textType,
    ${YogaModel.SecondsOrNot} $boolType
-   )''');
+  ${YogaModel.SecondsOrTimes} $textType)''');
 
     await db.execute('''
     CREATE TABLE ${YogaModel.YogaTable3}(
@@ -50,7 +49,7 @@ class YogaDatabase {
    ${YogaModel.YogaName} $textType,
    ${YogaModel.ImageName} $textType,
    ${YogaModel.SecondsOrNot} $boolType
-   )''');
+  ${YogaModel.SecondsOrTimes} $textType)''');
 
     await db.execute('''
     CREATE TABLE ${YogaModel.YogaSummary}(
