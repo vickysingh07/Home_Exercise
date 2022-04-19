@@ -1,19 +1,22 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers, file_names, non_constant_identifier_names
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers, file_names, non_constant_identifier_names, must_be_immutable, use_key_in_widget_constructors
 
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:home_exercise/Screens/Break.dart';
+import 'package:home_exercise/model/model.dart';
 
 import 'package:provider/provider.dart';
 
 class WorkOutDet extends StatelessWidget {
-  const WorkOutDet({Key? key}) : super(key: key);
+  List<Yoga> ListOfYoga;
+  int yogaindex;
+  WorkOutDet({required this.ListOfYoga, required this.yogaindex});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<TimerModelSec>(
-      create: (context) => TimerModelSec(context),
+      create: (context) => TimerModelSec(context, ListOfYoga, yogaindex + 1),
       child: Scaffold(
         body: Stack(
           children: [
@@ -26,51 +29,59 @@ class WorkOutDet extends StatelessWidget {
                         image: DecorationImage(
                             fit: BoxFit.cover,
                             image: NetworkImage(
-                                "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=920&q=80"))),
+                                ListOfYoga[yogaindex].YogaImgUrl))),
                   ),
                   Spacer(),
                   Text(
-                    "Anulom Vilom",
+                    ListOfYoga[yogaindex].YogaTitle,
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 35),
                   ),
                   Spacer(),
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 80),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-                    decoration: BoxDecoration(
-                        color: Colors.blueAccent,
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "00",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                              color: Colors.white),
-                        ),
-                        Text(
-                          " : ",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                              color: Colors.white),
-                        ),
-                        Consumer<TimerModelSec>(
-                          builder: (context, myModel, child) {
-                            return Text(
-                              myModel.countdown.toString(),
+                      margin: EdgeInsets.symmetric(horizontal: 80),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                      decoration: BoxDecoration(
+                          color: Colors.blueAccent,
+                          borderRadius: BorderRadius.circular(50)),
+                      child: ListOfYoga[yogaindex].Seconds
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "00",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30,
+                                      color: Colors.white),
+                                ),
+                                Text(
+                                  " : ",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30,
+                                      color: Colors.white),
+                                ),
+                                Consumer<TimerModelSec>(
+                                  builder: (context, myModel, child) {
+                                    return Text(
+                                      myModel.countdown.toString(),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 30,
+                                          color: Colors.white),
+                                    );
+                                  },
+                                )
+                              ],
+                            )
+                          : Text(
+                              "x${ListOfYoga[yogaindex].SecondsOrTimes}",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 30,
                                   color: Colors.white),
-                            );
-                          },
-                        )
-                      ],
-                    ),
-                  ),
+                            )),
                   Spacer(),
                   SizedBox(
                     height: 30,
@@ -96,18 +107,38 @@ class WorkOutDet extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              "Previous",
-                              style: TextStyle(fontSize: 16),
-                            )),
-                        TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              "Next",
-                              style: TextStyle(fontSize: 16),
-                            ))
+                        yogaindex != 0
+                            ? TextButton(
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => BreakTime(
+                                              ListOfYoga: ListOfYoga,
+                                              yogaindex: yogaindex - 1)));
+                                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WorkOutDet(ListOfYoga: ListOfYoga, yogaindex: yogaindex-1)));
+                                },
+                                child: Text(
+                                  "Previous",
+                                  style: TextStyle(fontSize: 16),
+                                ))
+                            : Container(),
+                        yogaindex != ListOfYoga.length - 1
+                            ? TextButton(
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => BreakTime(
+                                              ListOfYoga: ListOfYoga,
+                                              yogaindex: yogaindex + 1)));
+                                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WorkOutDet(ListOfYoga: ListOfYoga, yogaindex: yogaindex+1)));
+                                },
+                                child: Text(
+                                  "Next",
+                                  style: TextStyle(fontSize: 16),
+                                ))
+                            : Container()
                       ],
                     ),
                   ),
@@ -120,7 +151,7 @@ class WorkOutDet extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             vertical: 10, horizontal: 15),
                         child: Text(
-                          "Next: Anulom Vilom",
+                          "Next: ${yogaindex >= ListOfYoga.length - 1 ? "FINISH" : ListOfYoga[yogaindex + 1].YogaTitle}",
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
@@ -204,20 +235,23 @@ class WorkOutDet extends StatelessWidget {
 }
 
 class TimerModelSec with ChangeNotifier {
-  TimerModelSec(context) {
-    MyTimerSec(context);
+  TimerModelSec(context, List<Yoga> ListOfYoga, int yogaindex) {
+    MyTimerSec(context, ListOfYoga, yogaindex);
   }
-  int countdown = 30;
+  int countdown = 130;
   bool visible = false;
 
-  MyTimerSec(context) async {
+  MyTimerSec(context, List<Yoga> ListOfYoga, int yogaindex) async {
     Timer.periodic(Duration(seconds: 1), (timer) {
       countdown--;
       notifyListeners();
       if (countdown == 0) {
         timer.cancel();
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => BreakTime()));
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    BreakTime(ListOfYoga: ListOfYoga, yogaindex: yogaindex)));
       }
     });
   }

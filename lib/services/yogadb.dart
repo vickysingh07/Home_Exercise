@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, prefer_const_declarations
+// ignore_for_file: prefer_const_declarations, non_constant_identifier_names
 
 import 'package:home_exercise/model/model.dart';
 import 'package:sqflite/sqflite.dart';
@@ -24,23 +24,26 @@ class YogaDatabase {
 
   Future _createDB(Database db, int version) async {
     final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+    final intType = "INTEGER NOT NULL";
     final textType = 'TEXT NOT NULL';
     final boolType = 'BOOLEAN NOT NULL';
     // id , bool(Seconds) , text
 
     await db.execute('''
-    CREATE TABLE ${YogaModel.YogaTable1}(
-   ${YogaModel.IDName} $idType,
-   ${YogaModel.YogaName} $textType,
+    CREATE TABLE ${YogaModel.YogaTable1}(${YogaModel.IDName} $idType,
+    ${YogaModel.YogaName} $textType,
    ${YogaModel.ImageName} $textType,
-   ${YogaModel.SecondsOrTimes} $textType)''');
+   ${YogaModel.YogaKeyWorkOuts} $intType,
+   ${YogaModel.SecondsOrTimes} $textType,
+   ${YogaModel.SecondsOrNot} $boolType)''');
 
     await db.execute('''
     CREATE TABLE ${YogaModel.YogaTable2}(
    ${YogaModel.IDName} $idType,
    ${YogaModel.YogaName} $textType,
+   ${YogaModel.YogaKeyWorkOuts} $intType,
    ${YogaModel.ImageName} $textType,
-   ${YogaModel.SecondsOrNot} $boolType
+   ${YogaModel.SecondsOrNot} $boolType,
   ${YogaModel.SecondsOrTimes} $textType)''');
 
     await db.execute('''
@@ -48,16 +51,18 @@ class YogaDatabase {
    ${YogaModel.IDName} $idType,
    ${YogaModel.YogaName} $textType,
    ${YogaModel.ImageName} $textType,
-   ${YogaModel.SecondsOrNot} $boolType
+   ${YogaModel.YogaKeyWorkOuts} $intType,
+   ${YogaModel.SecondsOrNot} $boolType,
   ${YogaModel.SecondsOrTimes} $textType)''');
 
     await db.execute('''
     CREATE TABLE ${YogaModel.YogaSummary}(
    ${YogaModel.IDName} $idType,
     ${YogaModel.YogaWorkOutName} $textType,
+    ${YogaModel.YogaKey} $intType,
    ${YogaModel.BackImg} $textType,
    ${YogaModel.TimeTaken} $textType,
-   ${YogaModel.TotalNoOfWork} $textType,
+   ${YogaModel.TotalNoOfWork} $textType
    )''');
   }
 
