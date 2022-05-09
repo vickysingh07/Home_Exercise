@@ -1,16 +1,19 @@
-// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, file_names, use_key_in_widget_constructors, must_be_immutable
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:home_exercise/Screens/WorkOutDet.dart';
 import 'package:home_exercise/model/model.dart';
+
 import 'package:provider/provider.dart';
 
 class BreakTime extends StatelessWidget {
   List<Yoga> ListOfYoga;
   int yogaindex;
-  BreakTime({required this.ListOfYoga, required this.yogaindex});
+
+  BreakTime({
+    required this.ListOfYoga,
+    required this.yogaindex,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +113,7 @@ class TimerModelSec with ChangeNotifier {
       notifyListeners();
       if (countdown == 0) {
         timer.cancel();
-        Navigator.push(
+        Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) => WorkOutDet(

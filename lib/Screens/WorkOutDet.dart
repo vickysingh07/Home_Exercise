@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers, file_names, non_constant_identifier_names, must_be_immutable, use_key_in_widget_constructors
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -11,7 +9,11 @@ import 'package:provider/provider.dart';
 class WorkOutDet extends StatelessWidget {
   List<Yoga> ListOfYoga;
   int yogaindex;
-  WorkOutDet({required this.ListOfYoga, required this.yogaindex});
+
+  WorkOutDet({
+    required this.ListOfYoga,
+    required this.yogaindex,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +190,15 @@ class WorkOutDet extends StatelessWidget {
                             height: 30,
                           ),
                           OutlinedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => WorkOutDet(
+                                              ListOfYoga: ListOfYoga,
+                                              yogaindex: 0,
+                                            )));
+                              },
                               child: Container(
                                 width: 180,
                                 child: Text(
@@ -198,7 +208,9 @@ class WorkOutDet extends StatelessWidget {
                                 ),
                               )),
                           OutlinedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
                               child: Container(
                                 width: 180,
                                 child: Text(
@@ -243,11 +255,11 @@ class TimerModelSec with ChangeNotifier {
 
   MyTimerSec(context, List<Yoga> ListOfYoga, int yogaindex) async {
     Timer.periodic(Duration(seconds: 1), (timer) {
-      countdown--;
+      visible ? countdown + 0 : countdown--;
       notifyListeners();
       if (countdown == 0) {
         timer.cancel();
-        Navigator.push(
+        Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) =>

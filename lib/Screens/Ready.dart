@@ -1,6 +1,5 @@
-// ignore_for_file: avoid_unnecessary_containers, camel_case_types, prefer_const_constructors, file_names, non_constant_identifier_names, avoid_print, use_key_in_widget_constructors, must_be_immutable
-
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:home_exercise/Screens/WorkOutDet.dart';
 import 'package:home_exercise/model/model.dart';
@@ -76,7 +75,7 @@ class TimerModel with ChangeNotifier {
       if (countdown == 0) {
         timer.cancel();
         timer.cancel();
-        Navigator.push(
+        Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) => WorkOutDet(
