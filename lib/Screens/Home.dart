@@ -1,11 +1,9 @@
-// ignore_for_file: prefer_const_constructors, file_names, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, non_constant_identifier_names, unnecessary_this, avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:home_exercise/Screens/StartUp.dart';
-import 'package:home_exercise/widgets/CustomAppBar.dart';
-import 'package:home_exercise/widgets/CustomDrawer.dart';
 import 'package:home_exercise/model/model.dart';
 import 'package:home_exercise/services/yogadb.dart';
+import 'package:home_exercise/widgets/CustomAppBar.dart';
+import 'package:home_exercise/widgets/CustomDrawer.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
