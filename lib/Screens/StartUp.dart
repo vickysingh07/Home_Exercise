@@ -1,11 +1,11 @@
-// ignore_for_file: use_key_in_widget_constructors, non_constant_identifier_names, must_be_immutable, unnecessary_this, prefer_const_constructors, file_names
+// ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:home_exercise/Screens/Ready.dart';
 import 'package:home_exercise/model/model.dart';
 import 'package:home_exercise/services/yogadb.dart';
 
-//Video No 21 Excercise - Solve The Database Inserting Problem Using Shared Preference
 class Startup extends StatefulWidget {
   String Yogakey;
   YogaSummary yogaSum;
@@ -18,7 +18,6 @@ class Startup extends StatefulWidget {
 class _StartupState extends State<Startup> {
   @override
   void initState() {
-    // ignore: todo
     // TODO: implement initState
     super.initState();
     ReadAllYoga();
@@ -65,16 +64,11 @@ class _StartupState extends State<Startup> {
                   flexibleSpace: FlexibleSpaceBar(
                     collapseMode: CollapseMode.parallax,
                     title: Text(widget.yogaSum.YogaWorkOutName),
-                    background: Image.network(
+                    background: Image.asset(
                       widget.yogaSum.BackImg.toString(),
                       fit: BoxFit.cover,
                     ),
                   ),
-                  actions: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.thumb_up_alt_rounded))
-                  ],
                 ),
                 SliverToBoxAdapter(
                   child: Container(
@@ -101,7 +95,7 @@ class _StartupState extends State<Startup> {
                             itemBuilder: (context, index) => ListTile(
                                   leading: Container(
                                       margin: EdgeInsets.only(right: 20),
-                                      child: Image.network(
+                                      child: Image.asset(
                                         AllYogaWorkOuts[index].YogaImgUrl,
                                         fit: BoxFit.cover,
                                       )),

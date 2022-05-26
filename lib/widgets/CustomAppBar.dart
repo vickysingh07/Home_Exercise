@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, must_be_immutable, file_names, use_key_in_widget_constructors, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
 
@@ -51,16 +51,15 @@ class CustomAppBar extends StatelessWidget {
             ],
           ),
           actions: [
-            Icon(
-              Icons.notifications,
+            IconButton(
+              icon: Icon(Icons.notifications),
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("No New Notifications"),
+                ));
+              },
               color: iconTween.value,
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: CircleAvatar(
-                backgroundColor: Colors.black,
-              ),
-            )
           ],
         ),
       ),

@@ -1,9 +1,22 @@
-// ignore_for_file: prefer_const_constructors, duplicate_ignore, file_names
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
+import 'package:home_exercise/Screens/SplashScreen.dart';
+import 'package:home_exercise/services/localdb.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);
+
+  Future<void> shareApp() async {
+    await FlutterShare.share(
+        title: 'Hey I am using Yoga For Beginners App',
+        text:
+            'Hey I am using Yoga For Beginners App. It has best yoga workout for all age groups. You should try it once.',
+        linkUrl: 'https://flutter.dev/',
+        chooserTitle: 'Example Chooser Title');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +40,53 @@ class CustomDrawer extends StatelessWidget {
               Icons.restart_alt_sharp,
               size: 25,
             ),
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                        title: Text('RESET PROGRESS'),
+                        actionsAlignment: MainAxisAlignment.center,
+                        actionsPadding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                        content: Text(
+                            'This will reset all of your fitness data including Total Workout Time, Streak and Burned Calories. The action cannot be revert once done.'),
+                        actions: [
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text(
+                              "Cancel",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            style: ButtonStyle(
+                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                    EdgeInsets.symmetric(
+                                        vertical: 18, horizontal: 35))),
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              await LocalDB.setWorkOutTime(0);
+                              await LocalDB.setkcal(0);
+                              await LocalDB.setStreak(0);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SplashScreen()));
+                            },
+                            child: Text(
+                              "Reset",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            style: ButtonStyle(
+                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                    EdgeInsets.symmetric(
+                                        vertical: 18, horizontal: 35))),
+                          )
+                        ],
+                      ));
+            },
           ),
-          // ignore: prefer_const_constructors
           ListTile(
             title: Text(
               "Share With Friends",
@@ -38,6 +96,7 @@ class CustomDrawer extends StatelessWidget {
               Icons.share,
               size: 25,
             ),
+            onTap: shareApp,
           ),
           ListTile(
             title: Text(
@@ -48,16 +107,10 @@ class CustomDrawer extends StatelessWidget {
               Icons.star,
               size: 25,
             ),
-          ),
-          ListTile(
-            title: Text(
-              "Feedback",
-              style: TextStyle(fontSize: 18),
-            ),
-            leading: Icon(
-              Icons.comment,
-              size: 25,
-            ),
+            onTap: () async {
+              await launchUrl(Uri.parse(
+                  "https://play.google.com/store/apps/details?id=com.dhruv.aiem"));
+            },
           ),
           ListTile(
             title: Text(
@@ -68,6 +121,11 @@ class CustomDrawer extends StatelessWidget {
               Icons.security,
               size: 25,
             ),
+            onTap: () async {
+              // https://sites.google.com/view/yogaforbeginners-indianyoga/privacy-policy
+              await launchUrl(Uri.parse(
+                  "https://sites.google.com/view/yogaforbeginners-indianyoga/privacy-policy"));
+            },
           ),
           Divider(
             thickness: 2,
