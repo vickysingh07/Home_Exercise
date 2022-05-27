@@ -108,8 +108,8 @@ class CustomDrawer extends StatelessWidget {
               size: 25,
             ),
             onTap: () async {
-              await launchUrl(Uri.parse(
-                  "https://play.google.com/store/apps/details?id=com.dhruv.aiem"));
+              // await launchUrl(Uri.parse(
+              //     "https://play.google.com/store/apps/details?id=com.dhruv.aiem"));
             },
           ),
           ListTile(
@@ -123,8 +123,8 @@ class CustomDrawer extends StatelessWidget {
             ),
             onTap: () async {
               // https://sites.google.com/view/yogaforbeginners-indianyoga/privacy-policy
-              await launchUrl(Uri.parse(
-                  "https://sites.google.com/view/yogaforbeginners-indianyoga/privacy-policy"));
+              // await launchUrl(Uri.parse(
+              //     "https://sites.google.com/view/yogaforbeginners-indianyoga/privacy-policy"));
             },
           ),
           Divider(

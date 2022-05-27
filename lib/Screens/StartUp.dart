@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:home_exercise/Screens/Ready.dart';
@@ -69,6 +67,47 @@ class _StartupState extends State<Startup> {
                       fit: BoxFit.cover,
                     ),
                   ),
+
+                  //TODO: In Next Update - Add An Info Button About The Workout Pack
+                  actions: [
+                    IconButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                    title: Text('Surya Namaskar'),
+                                    actionsAlignment: MainAxisAlignment.center,
+                                    actionsPadding: EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 10),
+                                    actions: [
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("Close"))
+                                    ],
+                                    content: Container(
+                                      child: Column(
+                                        children: [
+                                          Image.asset(
+                                              "assets/01_Suryanamskar/main.jpg"),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            'This will reset all of your fitness data including Total Workout Time, Streak and Burned Calories. The action cannot be revert once done.',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ));
+                        },
+                        icon: Icon(Icons.help))
+                  ],
                 ),
                 SliverToBoxAdapter(
                   child: Container(

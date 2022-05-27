@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names
-
 class YogaModel {
   static String YogaTable1 = "SuryaNamaskar";
   static String YogaTable2 = "WeightLossYoga";

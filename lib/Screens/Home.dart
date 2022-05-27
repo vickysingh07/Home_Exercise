@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:home_exercise/Screens/StartUp.dart';
 import 'package:home_exercise/model/model.dart';
